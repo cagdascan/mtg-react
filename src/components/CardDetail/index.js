@@ -86,7 +86,16 @@ const BackLink = styled(Link) `
   right: 10px;
 `;
 
-class CardDetail extends Component {
+export class CardDetail extends Component {
+  static defaultProps = {
+    match: {
+      params: {
+        id: null
+      }
+    },
+    loadCard: () => { }
+  };
+
   componentDidMount() {
     const cardId = this.props.match.params.id;
     this.props.loadCard(cardId);

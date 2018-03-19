@@ -65,11 +65,21 @@ const ListItem = ({ type, name, id, imageUrl }) => (
   </Wrapper>
 );
 
+ListItem.defaulProps = {
+  name: '',
+  id: '',
+  imageUrl: '',
+  type: '',
+  context: {
+    router: {}
+  }
+};
+
 ListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  name: PropTypes.string,
+  id: PropTypes.string,
+  imageUrl: PropTypes.string,
+  type: PropTypes.string
 };
 
 export default ListItem;

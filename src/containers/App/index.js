@@ -42,7 +42,13 @@ const Loader = styled.div`
   margin: 50px 0;
 `;
 
-class App extends Component {
+export class App extends Component {
+  static defaultProps = {
+    cards: [],
+    resetPage: () => { },
+    loadCards: () => { }
+  };
+
   componentDidMount() {
     this.props.resetPage();
     this.props.loadCards();
@@ -83,9 +89,10 @@ class App extends Component {
 App.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  cards: PropTypes.array,
+  cards: PropTypes.array.isRequired,
   loadCards: PropTypes.func,
-  nextPage: PropTypes.func
+  nextPage: PropTypes.func,
+  resetPage: PropTypes.func
 };
 
 export const mapDispatchToProps = dispatch => ({

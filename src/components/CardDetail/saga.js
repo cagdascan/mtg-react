@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOAD_CARD, BASE_URL } from './constants';
+import { LOAD_CARD } from './constants';
+import { BASE_URL } from '../../containers/App/constants';
 import { cardLoaded, cardLoadingError } from './actions';
 
 import request from '../../utils/request';
