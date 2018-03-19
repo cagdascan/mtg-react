@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import injectReducer from '../../utils/injectReducer';
 import injectSaga from '../../utils/injectSaga';
@@ -12,12 +12,39 @@ import {
   makeSelectLoading,
   makeSelectError
 } from './selectors';
-import { loadCards, nextPage } from './actions';
+import { loadCards, nextPage, resetPage } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import ListItem from '../../components/ListItem';
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+`;
+
+const List = styled.ul`
+  list-style: none;
+  -webkit-padding-start: 0;
+`;
+
+const Header = styled.h1`
+  font-size: 24px;
+  color: #fff;
+  margin: 40px 0;
+  text-align: center;
+`;
+
+const Loader = styled.div`
+  height: 100px;
+  color: #fff;
+  text-align: center;
+  margin: 50px 0;
+`;
 
 class App extends Component {
   componentDidMount() {
+    this.props.resetPage();
     this.props.loadCards();
     window.addEventListener('scroll', this.onScroll);
   }
@@ -37,15 +64,18 @@ class App extends Component {
   };
 
   render() {
-    const { cards } = this.props;
+    const { cards, loading } = this.props;
+
     return (
-      <ul>
-        {cards.map((i, idx) => (
-          <li key={idx}>
-            <Link to={`/card/${i.number}`}>{i.name}</Link>
-          </li>
-        ))}
-      </ul>
+      <Wrapper>
+        <Header>
+          Magic the Gathering
+        </Header>
+        <List>
+          {cards.map(item => <ListItem name={item.name} id={item.id} imageUrl={item.imageUrl} type={item.type} />)}
+        </List>
+        {loading && <Loader>loading...</Loader>}
+      </Wrapper>
     );
   }
 }
@@ -64,6 +94,9 @@ export const mapDispatchToProps = dispatch => ({
   },
   nextPage: () => {
     dispatch(nextPage());
+  },
+  resetPage: () => {
+    dispatch(resetPage());
   }
 });
 

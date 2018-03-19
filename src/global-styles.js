@@ -4,6 +4,7 @@ injectGlobal`
   html,
   body {
     width: 100%;
+    background: #000;
   }
 
   body {

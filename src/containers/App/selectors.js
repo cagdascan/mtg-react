@@ -31,5 +31,5 @@ export {
   makeSelectError,
   makeSelectCards,
   makeSelectPage,
-  makeSelectLocation
+  makeSelectLocation,
 };
